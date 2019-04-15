@@ -2,12 +2,16 @@ FROM jupyter/minimal-notebook
 LABEL maintainer="Hiromu Hota <hiromu.hota@hal.hitachi.com>"
 USER root
 
+RUN apt-get install gnupg
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+RUN sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/PostgreSQL.list'
+RUN apt update
 RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libxslt-dev \
     python-matplotlib \
     poppler-utils \
-    postgresql-client \
+    postgresql-11 \
     libmagickwand-dev \
     ghostscript \
  && rm -rf /var/lib/{apt,dpkg,cache,log}/

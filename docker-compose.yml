@@ -2,14 +2,18 @@ version: "3"
 services:
 
   jupyter:
-    image: hiromuhota/fonduer-tutorials
+    image: jdunnmon/fonduer-memex:04-03-2019
     ports:
-      - "8888:8888"
+      - "8891:8888"
     links:
       - postgres
+    volumes:
+      - /dfs/scratch0/jdunnmon/repos/MMMTL_MEMEX/parser:/parser
+      - /dfs/scratch0/jdunnmon/data/memex_sample_data:/data
+      - /dfs/docker/memex_parse_output:/output:Z
 
   postgres:
-    image: postgres
+    image: postgres:11.2
     restart: always
     environment:
       POSTGRES_USER: jovyan
